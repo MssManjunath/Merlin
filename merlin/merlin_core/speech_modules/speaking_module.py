@@ -11,7 +11,6 @@ except OSError:
     pass
 
 # ElevenLabs client
-client = ElevenLabs(api_key="sk_15056b5f1edf0083ce060c232b3e91c3bade20fb9f2990fe")
 
 def speak(text):
     print("🔊 Speaking:", text)
