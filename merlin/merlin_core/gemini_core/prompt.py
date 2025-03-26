@@ -8,6 +8,9 @@ from .system_prompt import SYSTEM_PROMPT
 from speech_modules.speech_recognition import listen_from_microphone
 from speech_modules.speaking_module import speak
 
+# Set your API key
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
+
 
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
