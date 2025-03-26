@@ -15,6 +15,9 @@ os.environ["GOOGLE_API_KEY"] = "AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
+# GOOGLE_API_KEY=AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA
+
 
 import json
 
