@@ -1,9 +1,9 @@
 import speech_recognition as sr
+from .speaking_module import play_sound
 
 def listen_from_microphone(timeout=5, phrase_time_limit=10, language="en-US"):
     recognizer = sr.Recognizer()
-
-    # Adjust for ambient noise
+    
     with sr.Microphone() as source:
         print("🎤 Calibrating for background noise...")
         recognizer.adjust_for_ambient_noise(source, duration=1)
@@ -29,3 +29,13 @@ def listen_from_microphone(timeout=5, phrase_time_limit=10, language="en-US"):
     except sr.RequestError:
         print("❌ Speech recognition service is unavailable.")
         return "Speech recognition service is unavailable."
+
+
+def listen_passive():
+    return listen_from_microphone(timeout=3, phrase_time_limit=4)
+
+def listen_active():
+    play_sound("start_beep.wav")
+    transcript = listen_from_microphone(timeout=6, phrase_time_limit=10)
+    play_sound("end_chime.wav")
+    return transcript
