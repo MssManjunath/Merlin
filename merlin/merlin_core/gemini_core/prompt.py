@@ -6,22 +6,18 @@ import json
 
 from langchain_core.messages import HumanMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
-from .system_prompt import SYSTEM_PROMPT,SYSTEM_PROMPT_V_1,SYSTEM_PROMPT_WITH_MEMORY
+from .system_prompt import SYSTEM_PROMPT,SYSTEM_PROMPT_V_1,SYSTEM_PROMPT_WITH_MEMORY, SYSTEM_PROMPT_WITH_MEMORY_V1
 from speech_modules.speech_recognition import listen_from_microphone
 from speech_modules.speaking_module import speak
 from memory.memory_updater.memory_updater import update_memory,load_file
 import datetime
 
 # Set your API key
-os.environ["GOOGLE_API_KEY"] = "AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
-
 
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
 
-GOOGLE_API_KEY="AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
-
-CURRENT_PROMPT = SYSTEM_PROMPT_WITH_MEMORY
+CURRENT_PROMPT = SYSTEM_PROMPT_WITH_MEMORY_V1
 
 
 def extract_combined_response(text):
@@ -102,6 +98,7 @@ def wake_up_bot(conversation_state):
         ack, actionable, memory_update = get_structured_response_with_context(user_input, conversation_state,timestamp)
 
         speak(ack)
+        print(ack)
         if memory_update:
             print("Writing to memory")
             update_memory(memory_update)
