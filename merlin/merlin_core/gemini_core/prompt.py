@@ -11,11 +11,16 @@ from speech_modules.speech_recognition import listen_from_microphone
 from speech_modules.speaking_module import speak
 from memory.memory_updater.memory_updater import update_memory,load_file
 import datetime
+from services.n8n_workflow import send_automation_request
+
 
 # Set your API key
+os.environ["GOOGLE_API_KEY"] = "AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
 
 # Initialize LLM
 llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash")
+
+GOOGLE_API_KEY="AIzaSyCp4MQZfPRZI7Cld15eiJX3ul9mvoIQJBA"
 
 CURRENT_PROMPT = SYSTEM_PROMPT_WITH_MEMORY_V1
 
@@ -84,7 +89,7 @@ def get_structured_response_with_context(user_input, state,timestamp):
 
 
 
-def wake_up_bot(conversation_state):
+async def wake_up_bot(conversation_state):
     
     speak("Lets go Boss")
     while True:
@@ -120,11 +125,22 @@ def wake_up_bot(conversation_state):
                         "awaiting_info": False
                 }
 
+                automation_response = await send_automation_request(actionable)
+
+                print(automation_response)
+
+
+
+
+                
+
+
+
         elif not actionable:
             print("General chat - no automation needed.")
 
 
-def chat_start():
+async def chat_start():
     conversation_state = {
         "partial_json": None,
         "awaiting_info": False
@@ -134,7 +150,7 @@ def chat_start():
         # user_input = listen_passive()
         user_input = input("Type something (wake word): ")
         if "merlin" in user_input.lower():
-            wake_up_bot(conversation_state)
+            await wake_up_bot(conversation_state)
 
 
 
